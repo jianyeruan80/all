@@ -1,0 +1,74 @@
+<ion-view view-title="Menusifu">
+  <ion-header-bar align-title="center" class="bar-dark">
+    <h2  class="font30px cfff" ng-click="alert()" id="auto" translate>
+      kitchenDisplayRecall
+    </h2>
+    <h1 class="title" style="font-size:30px">{{clock | date:'HH:mm:ss'}}</h1>
+    <div class="buttons">
+      <a class="button button-energized button-icon ion-ios-undo" style="border:solid #ccc 1px;font-size:25px;margin-right:8px;" href="javascript:history.back()" translate>back</a>
+    </div>
+  </ion-header-bar>
+  <div class="bar bar-subheader">
+    <div class="row subHeader">
+      <div class="w220px" translate>orderInfo</div>
+      <div style="width:calc(100% - 445px);width:-webkit-calc(100% - 445px);" translate>dishName</div>
+      <div class="w125px" translate>time</div>
+      <div class="w150px" translate>status</div>
+    </div>
+  </div>
+  </div>
+  <ion-content class="mt48px">
+    <div  class="dfr w100" >
+    <div class="dfr w100 bge" ng-repeat="item in orderList  | filter:{kitchRecallShow:true}" 
+      ng-style="{'margin-bottom':(item.kitchRecallShow || item.status)?'10px':'0','margin-top':(item.kitchRecallShow || item.status)?'10px':'0'}">
+    <div   class="dfr w100 bge bdc" ng-if="item.kitchRecallShow || item.status">
+    <div style="width:250px;min-height:90px;font-size:22px;text-align:center;margin:auto;height:100%" >
+      <div style="display:inline-block;text-align:left;height:100%;">
+        <div style="height:30px;display:block;line-height:30px">Order&nbsp;&nbsp;#{{item.orderNum}}</div>
+        <div style="height:30px;display:block;line-height;30px;">{{type[item.orderType]}}&nbsp;&nbsp;{{item.tableName}}</div>
+        <div style="height:30px;display:block;line-height;30px;">{{item.server}}</div>
+      </div>
+    </div>
+    <div class="f1 tc bge p" style="text-align:center;background:#fff;padding:0 5px;">
+      <span ng-repeat-start="order in item.kitchenOrderItemsGroupByCourses" style="display:none" ></span>
+      <span ng-repeat-start="groundItems in order.orderItemListGroupBySubOrder"  style="display:none" ></span> 
+      <div  class="dfr w100" style="min-height:45px;border-bottom:solid #eee 1px;line-height:45px;font-size:25px" ng-repeat-end
+        ng-repeat="itemsub in groundItems.orderItemList | filter:kitcherRecallStatus"  >
+        <div style="width:calc(100% - 275px);width:-webkit-calc(100% - 275px);text-align:left;font-size:22px;line-height:30px">
+          <p  ng-class="{itemVoid:itemsub.voidItem}">
+            <span ng-if="!!groundItems.subOrderName" 
+              style="font-size:16px;color:#fff;
+              filter:Alpha(opacity=60);background-color: rgba(0,0,0,0.6);padding:0 2px;border-radius:6px;">S{{groundItems.subOrderName}}</span>
+            <span   style="font-size:25px;line-height:30px" ng-value="item.parent=true">
+            {{itemsub.itemDetail}}</span><span ng-if="!!(itemsub.kitchenTicketItemStatus[0].quantity>1)" class="cred f20px fw600"> X {{itemsub.kitchenTicketItemStatus[0].quantity}}</span><span ng-if="!!order.courseName"  style="color:red">({{order.courseName}})</span>
+            <span ng-if="!!(itemsub.kitchenTicketItemStatus[0].qtyVoid>0)" class="cblue f20px fw600">(Void:{{itemsub.kitchenTicketItemStatus[0].qtyVoid}})</span>
+          </p>
+          <div ng-repeat="combo in itemsub.subOrderItems" style="text-indent:12px;font-size:20px" ng-class="{itemVoid:itemsub.voidItem && itemsub.kitchenTicketItemStatus[0].quantity<1}">
+            {{$index+1}},{{combo.itemDetail |to_trusted }}  
+            <!-- <span  class="cred f20px fw600"> X {{combo.printQuantity}}</span> -->
+            <p ng-repeat="itemSec in combo.orderOptionItems" ng-if="$index % 2 ==0"  style="text-indent:20px;font-size:18px" >  
+              <span ng-if="$index+0<combo.orderOptionItems.length">&nbsp;&nbsp;{{combo.orderOptionItems[$index+0].optionDetail |to_trusted}}   &nbsp;|</span>  
+              <span ng-if="$index+1<combo.orderOptionItems.length">&nbsp;&nbsp;{{combo.orderOptionItems[$index+1].optionDetail |to_trusted}}</span>  
+            </p>
+          </div>
+          <p ng-repeat="itemSec in itemsub.orderOptionItems" ng-if="$index % 2 ==0"  style="text-indent:12px;font-size:20px" ng-class="{itemVoid:itemsub.voidItem && itemsub.kitchenTicketItemStatus[0].quantity<1}">  
+            <span ng-if="$index+0<itemsub.orderOptionItems.length">&nbsp;&nbsp;{{itemsub.orderOptionItems[$index+0].optionDetail |to_trusted}}   &nbsp;|</span>  
+            <span ng-if="$index+1<itemsub.orderOptionItems.length">&nbsp;&nbsp;{{itemsub.orderOptionItems[$index+1].optionDetail |to_trusted}}</span>  
+          </p>
+        </div>
+        <div  class="w125px" >{{itemsub | stopTime:this}}</div>
+        <div style="width:125px;background:#666;min-width:125px;max-height:50px;" 
+          ng-click="kitchenRecall('{{item.orderId}}','{{itemsub.kitchenTicketItemStatus[0].id}}')" ng-if="!item.status && !itemsub.voidItem" class="circle20">
+          <h1 style="padding:5px;color:#fff;">ReCall</h1>
+        </div>
+        <div style="width:125px;min-width:125px;"  ng-if="!!item.status || itemsub.voidItem" >
+          <h1 style="padding:8px;2px">Close</h1>
+        </div>
+      </div>
+    <span ng-repeat-end class="dn" style="display:block;text-align:left;overflow:hidden;width:90%;;word-break: break-all;"><span ng-if="item.orderNote"><font color="red">Note:</font>{{item.orderNote}}<span></span> 
+    </div>
+    <div>
+    </div>
+    <div>
+  </ion-content>
+</ion-view>

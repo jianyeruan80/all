@@ -1,0 +1,76 @@
+<ion-view view-title="Menusifu">
+  <ion-header-bar align-title="center" class="bar-dark">
+    <h2  class="font30px cfff" ng-click="test()" translate>
+      kitchenDisplaySearch
+    </h2>
+    <h1 class="title" style="font-size:30px">{{clock | date:'HH:mm:ss'}}</h1>
+    <div class="buttons">
+      <input type="text" ng-model="filterKitcher.filterWord" 
+        ng-focus="filterKitcher.listShow=true"  ng-click="filterKitcher.filterWord=''" 
+        style="min-width:300px;margin-right:10px;" readonly/>
+      <a class="button button-energized button-icon ion-ios-undo" ng-focus="filterKitcher.listShow=false"   href="javascript:history.back()" style="width:150px;border:solid #ccc 1px;font-size:25px;margin-right:8px;" translate>back</a>
+    </div>
+  </ion-header-bar>
+  <div class="bar bar-subheader">
+    <div class="row subHeader" ng-if="!searchList.length">
+      <div class="w220px" translate>orderInfo</div>
+      <div style="width:calc(100% - 445px);width:-webkit-calc(100% - 445px);" translate>dishName</div>
+      <div class="w125px" translate>time</div>
+      <div class="w150px" translate>status</div>
+    </div>
+    <div  style="position:absolute;z-index:100;min-width:300px;top:0;right:175px;background:#DDD;max-height:calc(100vh - 400px);max-height:-webkit-calc(100vh - 400px);overflow:hidden"  ng-if="filterKitcher.listShow">
+      <div  class="bbc lh30px ptrbl5px"
+        ng-repeat="item in filterKitcher.kitcherKey | filter:{'key':filterKitcher.filterWord}" ng-click="find('{{item.key}}')">{{item.key}}</div>
+    </div>
+  </div>
+  <ion-content  class="mt48px">
+    <div  class="dfr w100" ng-if="!!filterKitcher.filterWord" >
+    <div style="background:#eee;width:100%;display:flex;flex-flow:row wrap;" 
+      ng-repeat="item in orderList | filter:{kitchShow:true}"   ng-init="item.parent=true" 
+      ng-style="{'margin-bottom':item.parent?'10px':'0','margin-top':item.parent?'10px':'0'}"
+      ng-if="!filterKitcher.listShow">
+    <div  class="dfr w100 bge bdc" ng-if="item.parent" >
+    <div style="width:250px;min-height:90px;font-size:22px;text-align:center;margin:auto;height:100%" >
+      <div  class="h100 tl dib">
+        <div class="lh30px db">Order&nbsp;&nbsp;#{{item.orderNum}}</div>
+        <div class="lh30px db">{{type[item.orderType]}}&nbsp;&nbsp;{{item.tableName}}</div>
+        <div class="lh30px db">{{item.server}}</div>
+      </div>
+    </div>
+    <div  class="f1 tc bgf pl5px">
+      <span ng-repeat-start="order in item.kitchenOrderItemsGroupByCourses"  class="dn"></span>
+      <span ng-repeat-start="groundItems in order.orderItemListGroupBySubOrder"  class="dn" ng-value="item.parent=false" ></span> 
+      <div   ng-class="{'dfr':true,'w100':true,'bbe':true,'lh45px':true,'f25px':true,'hmin45px':true,'myclick':appInstances.modifyWait}" ng-repeat-end ng-repeat="itemsub in groundItems.orderItemList |  filter: kitcherStatus | filter:{itemDetail:filterKitcher.filterWord}"  ng-click='processSubmit("{{item.orderId}}","{{itemsub.kitchenTicketItemStatus[0].id}}")'>
+        <div style="width:calc(100% - 275px);width:-webkit-calc(100% - 275px);text-align:left;font-size:22px;line-height:30px">
+          <p  ng-class="{itemVoid:itemsub.voidItem}">
+            <span ng-if="!!groundItems.subOrderName" 
+              style="seat">S{{groundItems.subOrderName}}</span>
+            <span ng-if="!!item.recall" class="recall">R</span>
+            <span  class="f25px lh30px" ng-value="item.parent=true">
+            {{itemsub.itemDetail}}</span><span ng-if="!!(itemsub.kitchenTicketItemStatus[0].quantity>1)" class="cred f20px fw600"> X {{itemsub.kitchenTicketItemStatus[0].quantity}}</span><span ng-if="!!order.courseName" class="cred">({{order.courseName}})</span>
+            <span ng-if="!!(itemsub.kitchenTicketItemStatus[0].qtyVoid>0)" class="cblue f20px fw600">(Void:{{itemsub.kitchenTicketItemStatus[0].qtyVoid}})</span>
+          </p>
+          <div ng-repeat="combo in itemsub.subOrderItems" style="text-indent:12px;font-size:20px" ng-class="{itemVoid:itemsub.voidItem && itemsub.kitchenTicketItemStatus[0].quantity<1}">
+            {{$index+1}},{{combo.itemDetail |to_trusted }}  
+            <!-- <span  class="cred f20px fw600"> X {{combo.printQuantity}}</span> -->
+            <p ng-repeat="itemSec in combo.orderOptionItems" ng-if="$index % 2 ==0"  style="text-indent:20px;font-size:18px" >  
+              <span ng-if="$index+0<combo.orderOptionItems.length">&nbsp;&nbsp;{{combo.orderOptionItems[$index+0].optionDetail |to_trusted}}   &nbsp;|</span>  
+              <span ng-if="$index+1<combo.orderOptionItems.length">&nbsp;&nbsp;{{combo.orderOptionItems[$index+1].optionDetail |to_trusted}}</span>  
+            </p>
+          </div>
+          <p ng-repeat="itemSec in itemsub.orderOptionItems" ng-if="$index % 2 ==0"  style="text-indent:12px;font-size:20px" ng-class="{itemVoid:itemsub.voidItem && itemsub.kitchenTicketItemStatus[0].quantity<1}">  
+            <span ng-if="$index+0<itemsub.orderOptionItems.length">&nbsp;&nbsp;{{itemsub.orderOptionItems[$index+0].optionDetail |to_trusted}}   &nbsp;|</span>  
+            <span ng-if="$index+1<itemsub.orderOptionItems.length">&nbsp;&nbsp;{{itemsub.orderOptionItems[$index+1].optionDetail |to_trusted}}</span>  
+          </p>
+        </div>
+        <div  my-current-time class="w125px"   request-time="{{item.currentTime}}"></div>
+        <div  id="change{{itemsub.kitchenTicketItemStatus[0].id}}"  ng-if="!itemsub.voidItem" class="w150px tc">{{prepareStatus[itemsub.kitchenTicketItemStatus[0].status]}}</div>
+        <div   ng-if="!!itemsub.voidItem" id="change{{itemsub.kitchenTicketItemStatus[0].id}}" class="w150px tc" >Confirm</div>
+      </div>
+    <span ng-repeat-end class="dn" style="display:block;text-align:left;overflow:hidden;width:90%;;word-break: break-all;"><span ng-if="item.orderNote"><font color="red">Note:</font>{{item.orderNote}}<span></span> 
+    </div>
+    <div>
+    </div>
+    <div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+
+ <ion-nav-view name="tab-view">
+
+</ion-nav-view>
+
+ <script id="license.html" type="text/ng-template">
+   /*<div class="license" style="position:absolute;top:0;right:0;bottom:30vh;left:0;border:solid blue 2px;">*/
+         <div class="alert">{{config.error}}<br/>
+                <input ng-model="config.inputLicense"  readonly /><br/>
+                <p on-touch="OK()">OK</p>
+         </div>
+   /*</div>*/
+
+   <div class="h300px w100 bgE0 pa z9999 pab p4px">
+            <div   class="dfr h100 w80 bdBD mauto ajc lh60px">
+            <div ng-repeat="item in config.keyBoard  track by $index"    class="tc f50px bbDB brDB" ng-click="inputLicense('{{item.key}}')" 
+                    ng-class="{'keyAll':item.width =='keyAll','keyBorder':item.width=='keyBorder','Backspace':item.width=='Backspace','Otherspace':item.width=='Otherspace'}">
+                    {{item.key}}
+                </div>
+                
+            </div>
+ </div>
+
+</script>
+<div class="h300px w100 bgE0 pa z9999 pab p4px" ng-if="filterKitcher.listShow">
+            <div   class="dfr h100 w80 bdBD mauto ajc lh60px">
+            <div ng-repeat="item in config.keyBoard  track by $index"    class="tc f50px bbDB brDB" ng-click="inputKey('{{item.key}}')" 
+                    ng-class="{'keyAll':item.width =='keyAll','keyBorder':item.width=='keyBorder','Backspace':item.width=='Backspace','Otherspace':item.width=='Otherspace'}">
+                    {{item.key}}
+                </div>
+                
+            </div>
+ </div>

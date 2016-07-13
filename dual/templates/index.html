@@ -1,0 +1,288 @@
+<ion-view view-title="MENUSIFU Restaurant">
+
+
+<div class="info" ng-if="welcome">
+		<div class="info-header">
+			{{restaurantInfo.name}}
+		</div>
+
+      	<img src="{{photoUrl}}{{restaurantInfo.coverImage}}"  class="info-logo" />
+		
+		
+		<div class="info-content">
+			
+			
+
+			<div style="text-align:right;width:100%"><b>Contact Info:</b>{{restaurantInfo.website?restaurantInfo.website:restaurantInfo.telephone1}}</div>
+		 </div>
+
+
+		
+	</div>	
+ <div class="bodyLeft">
+
+<div ng-class="{sliderMenusifu:true,leftPosition:!!welcome}" ng-if="transitionEffect =='FADE'">
+		<div style="position:absolute;left:0;width:100%;height:100%;background:url('{{photoUrl}}/{{item.thumbPath}}');background-size:cover;"
+		 class="efg anim_fade_image{{$index}}" ng-repeat="item in gallery.photoList track by $index"></div>
+	</div>
+<div ng-class="{sliderMenusifu:true,leftPosition:!!welcome}">
+	  <input name="control" id="page1" type="radio" checked/>
+	  <input name="control" id="page2" type="radio"/>
+	  <input name="control" id="page3" type="radio"/>
+	  <input name="control" id="page4" type="radio"/>
+	  <div class="sliderMenusifu--el sliderMenusifu--el-1 anim-4parts">
+	    <div class="sliderMenusifu--el-bg">
+	      <div class="part top left"></div>
+	      <div class="part top right"></div>
+	      <div class="part bot left"></div>
+	      <div class="part bot right"></div>
+	    </div>
+	    <div class="sliderMenusifu--el-content">
+	      <!-- <h2 class="sliderMenusifu--el-heading">First slide</h2>
+	      <h1>纯CSS3炫酷全屏百叶窗效果幻灯片特效</h1>
+			<div class="htmleaf-links">
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/css3/css3donghua/201506192069.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+			</div> -->
+	    </div>
+	  </div>
+	  <div class="sliderMenusifu--el sliderMenusifu--el-2 anim-9parts">
+	    <div class="sliderMenusifu--el-bg">
+	      <div class="part left-top"></div>
+	      <div class="part mid-top"></div>
+	      <div class="part right-top"></div>
+	      <div class="part left-mid"></div>
+	      <div class="part mid-mid"></div>
+	      <div class="part right-mid"></div>
+	      <div class="part left-bot"></div>
+	      <div class="part mid-bot"></div>
+	      <div class="part right-bot"></div>
+	    </div>
+	    <div class="sliderMenusifu--el-content">
+	      <!-- <h2 class="sliderMenusifu--el-heading">Second slide</h2> -->
+	    </div>
+	  </div>
+	  <div class="sliderMenusifu--el sliderMenusifu--el-3 anim-5parts">
+	    <div class="sliderMenusifu--el-bg">
+	      <div class="part part-1"></div>
+	      <div class="part part-2"></div>
+	      <div class="part part-3"></div>
+	      <div class="part part-4"></div>
+	      <div class="part part-5"></div>
+	    </div>
+	    <div class="sliderMenusifu--el-content">
+	      <!-- <h2 class="sliderMenusifu--el-heading">Third slide</h2> -->
+	    </div>
+	  </div>
+	  <div class="sliderMenusifu--el sliderMenusifu--el-4 anim-3parts">
+	    <div class="sliderMenusifu--el-bg">
+	      <div class="part left"></div>
+	      <div class="part mid"></div>
+	      <div class="part right"></div>
+	    </div>
+	    <div class="sliderMenusifu--el-content">
+	     
+	    </div>
+	  </div>
+	  <div class="sliderMenusifu--control left">
+	    <label class="page1-left" for="page1"></label>
+	    <label class="page2-left" for="page2"></label>
+	    <label class="page3-left" for="page3"></label>
+	    <label class="page4-left" for="page4"></label>
+	  </div>
+	  <div class="sliderMenusifu--control right">
+	    <label class="page1-right" for="page1"></label>
+	    <label class="page2-right" for="page2"></label>
+	    <label class="page3-right" for="page3"></label>
+	    <label class="page4-right" for="page4"></label>
+	  </div>
+	</div>
+
+
+</div>
+ <div class="mask" ng-show="pay.sign && welcome">
+<div style="background:#fff;position:absolute;left:4%;top:40%;width:92%;height:15%;z-index:99999">
+					
+					<div style="display:table;width:100%;height:100%;padding:2%;font-weight:900;font-size:1.8em;">
+						<div style="display:table-row;height:60%;">
+								<div   style="display:table-cell;position:relative;vertical-align:middle;
+								border-style:solid;  
+								border-width:1px 0px 0px 1px;
+								border-color:#E3DAC9;width:33%;
+								">Amount
+							    </div>
+							    	<div style="display:table-cell;border-style:solid;  
+								border-width:0px 1px 0px 1px;
+								border-color:#E3DAC9">&nbsp;</div>
+
+								<div   style="display:table-cell;vertical-align:middle;border-style:solid;  
+								border-width:1px 0px 0px 0px;
+								border-color:#E3DAC9;width:33%;">Paid</div>
+									<div style="display:table-cell;border-style:solid;  
+								border-width:0px 1px 0px 1px;
+								border-color:#E3DAC9"></div>
+
+								<div   style="display:table-cell;vertical-align:middle;border-style:solid;  
+								border-width:1px 1px 0px 0px;
+								border-color:#E3DAC9;width:33%;">Change</div>
+						</div>
+
+							<div style="display:table-row;height:40%;font-weight:600;font-size:1em">
+								<div   style="display:table-cell;vertical-align:middle;
+								border-style:solid;  
+								border-width:0px 0px 1px 1px;
+								border-color:#E3DAC9;background:#FFCD34;color:#fff;">{{pay.total}}
+										
+								</div>
+								<div style="display:table-cell;border-style:solid;  
+								border-width:0px 1px 0px 1px;
+								border-color:#E3DAC9">&nbsp;</div>
+
+								<div   style="display:table-cell;vertical-align:middle;border-style:solid;  
+								border-width:0px 0px 1px 0px;
+								border-color:#E3DAC9;background:#FFCD34;color:#fff">{{pay.paid}}</div>
+
+								<div style="display:table-cell;border-style:solid;  
+								border-width:0px 1px 0px 1px;
+								border-color:#E3DAC9">&nbsp;</div>
+
+								<div   style="display:table-cell;vertical-align:middle;border-style:solid;  
+								border-width:0px 1px 1px 0px;
+								border-color:#E3DAC9;background:#FFCD34;color:#fff">{{pay.change}}</div>
+						</div>
+				
+					</div>	
+				</div>
+ </div>
+ <div class="bodyRight" ng-show="welcome">
+		<div class="rightHead">
+ 	 	<div>RECEIPT</div>
+ 	 </div>
+     <div style="display:table;margin-top:3%;font-weight:900;
+     width:100%;border:solid #E3DAC9  1px;width:95%;margin-left:2.5%;height:5%;font-size:1.3em">
+     <div style="display:table-cell;solid #E3DAC9 1px;width:15%;vertical-align:middle;">QTY</div>
+     <div style="display:table-cell;solid #E3DAC9 1px;width:65%;vertical-align:middle;">Menu Name</div>
+      <div style="display:table-cell;solid #E3DAC9 1px;width:20%;vertical-align:middle;">Price</div>
+     </div>
+   <ion-scroll style="width:100%;width:95%;margin-left:2.5%;height:63%;overflow-y: hidden" delegate-handle="small">
+      <div style="display:table;margin-top:0%;
+     width:100%;border-left:solid #E3DAC9  1px;border-right:solid #E3DAC9  1px;border-bottom:solid #E3DAC9 1px;width:100%;font-weight:600;font-size:1.0em">
+
+<div   style="display:table-row;" ng-repeat="item in dishes  | filter:{name:'!=================='} track by $index">
+				      
+				      <div  ng-class="{'headTable-top':!$first}" style="display:table-cell;border-right:solid #E3DAC9 1px;width:15%" >{{item.count}}</div>
+				       <div ng-class="{'headTable-top':!$first}" style="display:table-cell;border-right:solid #E3DAC9 1px;width:65%;text-align:left;">
+				       	
+				       	<p ng-if="item.name.en">{{item.name.en?item.name.en:item.name}}<span ng-if="item.size.en" style="padding-left:3px;color:#8B0000;">({{item.size.en}})</span></p>
+				       
+				       	<p ng-if="item.name['zh-cn']">{{item.name['zh-cn']}}<span ng-if="item.size['zh-cn']" style="padding-left:3px;color:#8B0000;">({{item.size['zh-cn']}})</span></p>
+						
+				       		<div ng-repeat="option in item.option" style="text-align:left;color:#8B0000;">
+				       			<p in-if="option.name.en">{{option.name.en}}</p>
+				       			<p in-if="option.name['zh-cn']">{{option.name['zh-cn']}}</p>
+							<div style="float:right;width:20%;text-align:right;" ng-if="option.price>0">{{option.price | currency}}&nbsp;</div>
+							</div>	
+				       		
+				       		<div ng-repeat="cb in item.combo.section" style="text-align:left;">&nbsp;&nbsp;<p ng-if="cb.name.en">{{cb.name.en}}</p>
+				       																						<p ng-if="cb.name['zh-cn']">{{cb.name['zh-cn']}}</p>				
+
+				       			<div ng-repeat="cbItem in cb.items" style="text-align:left;color:#8B0000;font-size:1em;">&nbsp;
+				       				<div style="float:left;width:80%;overflow:hidden;">&nbsp;&nbsp;&nbsp;&nbsp;<p ng-if="cbItem.name.en">{{cbItem.name.en}}</p>
+				       					                                                                       <p ng-if="cbItem.name['zh-cn']">{{cbItem.name['zh-cn']}}</p></div>
+				       				<div style="float:right;width:18%" ng-if="cbItem.price>0">{{cbItem.price }}</div>
+			      			
+				       			
+				       				</div>
+				       		</div>
+
+				       	 </div>
+				        <div ng-class="{'headTable-top':!$first}"  style="display:table-cell;width:20%;text-align:right">{{item.price | currency}}&nbsp;</div>
+				       </div>  
+ </div> 
+    
+      </ion-scroll> 
+ 
+  
+       <div style="display:table;position:absolute;bottom:0;height:25%;z-index:999;width:100%;font-size:1.3em">
+     <div style="display:table;
+				     border-left:solid #E3DAC9  1px;border-right:solid #E3DAC9  1px;
+				     width:95%;margin-left:2.5%;vertical-align:middle;">
+
+
+ <div style="display:table-row;height:65px;vertical-align:middle;">
+
+		<div style="display:table-cell;height:65px;border-top:solid #E3DAC9 1px;border-bottom:solid #E3DAC9 1px;position:relative;font-weight:900;width:30%;
+		"><div style="padding-top:5px">Subtotal</div>
+		<div style="background:#FFCD34;color:#fff;height:30px;position:absolute;bottom:0;width:100%;line-height:30px;">{{receipt.subTotal | currency}}</div>
+						        	
+		</div>
+
+
+<div style="display:table-cell;border-left:solid #E3DAC9 1px;border-right:solid #E3DAC9 1px">&nbsp;</div>
+
+<div style="display:table-cell;height:65px;border-top:solid #E3DAC9 1px;border-bottom:solid #E3DAC9 1px;position:relative;font-weight:900;width:40%;
+		"><span>Charge Fee</span>
+		<div style="background:#FFCD34;color:#fff;height:30px;position:absolute;bottom:0;width:100%;line-height:30px;">{{receipt.charge | currency}}</div>
+						        	
+		</div>
+<div style="display:table-cell;border-left:solid #E3DAC9 1px;border-right:solid #E3DAC9 1px">&nbsp;</div>
+						<div style="display:table-cell;height:65px;border-top:solid #E3DAC9 1px;border-bottom:solid #E3DAC9 1px;position:relative;font-weight:900;width:30%;
+		"><span style="margin-top:15px;">Discount</span>
+		<div style="background:#FFCD34;color:#fff;height:30px;position:absolute;bottom:0;width:100%;line-height:30px;">{{receipt.discount | currency}}</div>
+		</div>
+				       
+		 </div>  
+
+       
+
+
+       </div>      
+
+
+
+  
+	 <div style="display:table;margin:10px;
+				     border-left:solid #E3DAC9  1px;border-right:solid #E3DAC9  1px;
+				     width:95%;margin-left:2.5%;vertical-align:middle;">
+
+
+ <div style="display:table-row;height:65px;vertical-align:middle;">
+
+		<div style="display:table-cell;height:65px;border-top:solid #E3DAC9 1px;border-bottom:solid #E3DAC9 1px;position:relative;font-weight:900;width:30%;
+		"><div style="padding-top:5px">Tax</div>
+		<div style="background:#FFCD34;color:#fff;height:30px;position:absolute;bottom:0;width:100%;line-height:30px;">
+{{receipt.taxTotal | currency}}
+		</div>
+						        	
+		</div>
+
+
+<div style="display:table-cell;border-left:solid #E3DAC9 1px;border-right:solid #E3DAC9 1px">&nbsp;</div>
+
+<div style="display:table-cell;height:65px;border-top:solid #E3DAC9 1px;border-bottom:solid #E3DAC9 1px;position:relative;font-weight:900;width:40%;
+		"><span style="margin-top:15px;">Tips<span>
+		<div style="background:#FFCD34;color:#fff;height:30px;line-height:30px;position:absolute;bottom:0;width:100%">
+			{{receipt.tipsTotal | currency}}
+		</div>
+						        	
+		</div>
+<div style="display:table-cell;border-left:solid #E3DAC9 1px;border-right:solid #E3DAC9 1px">&nbsp;</div>
+						<div style="vertical-align:middle;display:table-cell;height:55px;border-top:solid #E3DAC9 1px;border-bottom:solid #E3DAC9 1px;position:relative;font-size:1.8em;font-weight:900;width:30%;
+		"><span style="margin-top:15px;">Total<span>
+		
+						        	
+		</div>
+				       </div>  
+
+       
+            <div style="font-size:1.8em;font-weight:900;position:absolute;padding-top:10px;right:5%;line-height:30px;">
+            	{{receipt.total | currency}}
+            </div>
+
+       </div>      
+
+
+ </ion-scroll>
+ </div>
+
+</ion-view>
